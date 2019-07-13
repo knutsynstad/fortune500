@@ -1,0 +1,37 @@
+@keyframes spinner
+	100%
+		transform: rotate(360deg)
+
+#calculating
+	position: fixed
+	bottom: 50px
+	right: 50px
+	text-align: right
+	display: none
+	.icons
+		display: inline-block
+		position: relative
+		cursor: pointer
+		//&:hover
+		//	.cancel
+		//		opacity: 1
+		//	.spinner
+		//		opacity: 0
+	.icon
+		right: 0
+		bottom: 0
+		position: absolute
+	.cancel
+		opacity: 0
+	.spinner
+		opacity: 1
+		animation: spinner 2s linear infinite
+	&.visible
+		display: block
+	p
+		margin: 0
+		color: black
+		font-size: 14px
+		line-height: 18px
+	.calculating-state
+		color: #777777	

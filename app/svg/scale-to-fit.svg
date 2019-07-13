@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="73px" height="73px" viewBox="0 0 73 73">
+  <g fill="white" opacity="0.5">
+    <circle id="illu-1-circle" cx="36.5" cy="36.5" r="36"/>
+    <rect id="illu-1-rect1" x="24.5" y="0.5" width="24" height="72"/>
+    <rect id="illu-1-rect2" x="0.5" y="24.5" width="72" height="24"/>
+  </g>
+  <g fill="none" stroke="white">
+  	<polyline points="12.5,0.5 0.5,0.5 0.5,12.5"/>
+  	<polyline points="72.5,12.5 72.5,0.5 60.5,0.5"/>
+  	<polyline points="60.5,72.5 72.5,72.5 72.5,60.5"/>
+  	<polyline points="0.5,60.5 0.5,72.5 12.5,72.5"/>
+  </g>
+</svg>

@@ -1,0 +1,148 @@
+#illu-dot-1
+	animation: dot1 3s ease-in-out infinite
+#illu-dot-2
+	animation: dot2 3s ease-in-out infinite
+#illu-dot-3
+	animation: dot3 3s ease-in-out infinite
+#illu-dot-4
+	animation: dot4 3s ease-in-out infinite
+#illu-dot-5
+	animation: dot5 3s ease-in-out infinite
+#illu-dot-6
+	animation: dot6 3s ease-in-out infinite
+#illu-dot-7
+	animation: dot7 3s ease-in-out infinite
+#illu-dot-8
+	animation: dot8 3s ease-in-out infinite
+#illu-dot-9
+	animation: dot9 3s ease-in-out infinite
+@keyframes dot1
+	0%, 33%
+		transform: translate(7px, 9px)
+	66%, 100%
+		transform: translate(0, 0)
+
+@keyframes dot2
+	0%, 33%
+		transform: translate(3px, 11px)
+	66%, 100%
+		transform: translate(0, 0)
+
+@keyframes dot3
+	0%, 33%
+		transform: translate(-9px, 14px)
+	66%, 100%
+		transform: translate(0, 0)
+
+@keyframes dot4
+	0%, 33%
+		transform: translate(14px, -2px)
+	66%, 100%
+		transform: translate(0, 0)
+
+@keyframes dot5
+	0%, 33%
+		transform: translate(2px, 2px)
+	66%, 100%
+		transform: translate(0, 0)
+
+@keyframes dot6
+	0%, 33%
+		transform: translate(-4px, -2px)
+	66%, 100%
+		transform: translate(0, 0)
+
+@keyframes dot7
+	0%, 33%
+		transform: translate(8px, -9px)
+	66%, 100%
+		transform: translate(0, 0)
+
+@keyframes dot8
+	0%, 33%
+		transform: translate(-7px, -14px)
+	66%, 100%
+		transform: translate(0, 0)
+
+@keyframes dot9
+	0%, 33%
+		transform: translate(-10px, -7px)
+	66%, 100%
+		transform: translate(0, 0)
+
+#illu-1-gridlines
+	animation: gridlines 3s ease-in-out infinite
+
+@keyframes gridlines
+	0%, 33%
+		opacity: 0
+	66%, 100%
+		opacity: 0.5
+
+
+#illu-1-circle
+	transform-origin: 50% 50%
+	animation: illu-1-circle 9s ease-in-out infinite
+#illu-1-rect1
+	transform-origin: 50% 50%
+	animation: illu-1-rect1 9s ease-in-out infinite
+#illu-1-rect2
+	transform-origin: 50% 50%
+	animation: illu-1-rect2 9s ease-in-out infinite
+@keyframes illu-1-circle
+	0%, 11.11% // small
+		opacity: 1
+		transform: scale(0.5)
+	22.22% // scale
+		opacity: 1
+		transform: scale(1)
+	33.33% // large
+		opacity: 1
+		transform: scale(1)
+	33.34%, 100% // hide
+		opacity: 0
+		transform: scale(1)
+@keyframes illu-1-rect1
+	0%, 33.33% // hide
+		opacity: 0
+		transform: scale(0.5)
+	33.34%, 44.44% // small
+		opacity: 1
+		transform: scale(0.5)
+	55.55% // scale
+		opacity: 1
+		transform: scale(1)
+	66.66% // large
+		opacity: 1
+		transform: scale(1)
+	66.67%, 100% // hide
+		opacity: 0
+		transform: scale(1)
+@keyframes illu-1-rect2
+	0%, 66.66% // hide
+		opacity: 0
+		transform: scale(0.5)
+	66.67%, 77.77% // small
+		opacity: 1
+		transform: scale(0.5)
+	88.88% // scale
+		opacity: 1
+		transform: scale(1)
+
+
+#illu-2-distance
+	stroke-dasharray: 72
+	animation: illu-2-distance 4s ease-in-out infinite
+@keyframes illu-2-distance
+	0%, 50%
+		stroke-dashoffset: 72
+	75%, 100%
+		stroke-dashoffset: 144
+
+#illu-2-dots
+	animation: illu-2-dots 4s ease-in-out infinite
+@keyframes illu-2-dots
+	0%, 25%
+		opacity: 0
+	25.01%, 100%
+		opacity: 1

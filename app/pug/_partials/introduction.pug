@@ -1,0 +1,141 @@
+.wrapper
+	section#introduction
+		article
+			.title: H1 Visualizing the<br />Space of Logos of<br />the Fortune 500
+
+			h3 Abstract
+			p This interactive visualization uses a neural network to analyze a set of logos (in this case the Fortune 500), find similarities and differences, and display the results. Users can adjust the parameters of the display format. The related paper describes how the code works (the analysis and display process). Code is available, enabling others to replicate the process, apply it to their own data sets (other sets of symbols), or to extend it to other uses.
+
+			h3 Introduction
+			p Much of what designers are called upon to do involves looking at how artifacts or features "fit-in" and "stand-out". That is, designers are often concerned with similarity and difference—seeing them, understanding them, and manipulating them. For example, a new icon must fit into a system and also be distinct from it. 
+
+			p A common step in developing products and identity systems is to collect examples from competitors and discuss them with clients. Now, software can speed up the process, while also enabling inclusion of much larger data sets.
+
+			p This example of software development by and for designers—beyond image editing—shows how changes in computing will continue and accelerate changes in design practice. These changes have significant implications for design education and continuing education. For example, it seems clear that designers will need to become comfortable using neural nets to analyze images and t-SNE's to display relationships.
+
+			p In this experiment, A.I. techniques are leveraged to algorithmically organize the logos of the Fortune 500 by visual similarity. A task that would be both difficult and time-consuming to do by hand, the computer does with ease. In a nutshell, it's about teaching the computer to see and process patterns. The result is a truly interactive visualization, where the parameters of underlying algorithms have been exposed—enabling viewers to interact with and manipulate the outcome.
+
+
+			h3 Background
+			p Our own ability to see and process patterns has been essential to our success and survival as a species. The evolution of neural networks in the outer layer of our brains enabled us to process visual and auditory patterns, helping us separate prey from a predator, helpful from harmful—good from bad. In fact, these natural neural networks are so efficient that we’re trying to mimic them with software. However, as the networks grow, so does the time and cost of running them.
+
+
+			p Massachusetts Institute of Technology (MIT) professor in A.I., <a href="http://people.csail.mit.edu/phw/" target="_blank">Patrick Henry Winston</a> calls computing power <a href="http://blogs.discovermagazine.com/crux/2017/10/11/neueral-networks-artificial-intelligence/#.WsAM15PwbOQ" target="_blank">“the most important enabler of <i>deep learning</i> [a type of layered neural network.]”</a> Historically, both cost and access to high-performance computing limited their usefulness. But with the marginal cost of computing dropping to near zero, nearly everyone can now access “affordable” on-demand computing.
+
+			p Access to high-performance computing accelerated advancements in A.I., but even the largest networks can’t match the size or complexity of the human brain, yet. That said, artificial neural networks are still able to outperform us on a number of tasks—demonstrating value. In order to understand where to effectively apply them, we must study our own cognitive limitations, so that we can develop solutions that persist where we fall short.
+
+			p In his 1956 paper, <a href="http://www.psych.utoronto.ca/users/peterson/psy430s2001/Miller%20GA%20Magical%20Seven%20Psych%20Review%201955.pdf" target="_blank">“The Magical Number Seven, Plus or Minus Two,”</a>, cognitive psychologist George A. Miller discusses our capacity and limitations for processing information. Miller asserted that an average person is able to hold 7 ± 2 pieces of information in their working memory (both immediate memory and absolute judgment) at any given time. His assertion affects our daily life in more than you might think. Ever wonder why U.S. phone numbers and license plates are limited to 7 characters in length?
+
+			p Our cognitive limitations make it difficult for us to process large amounts of information. For comparison, our working memory is in the 2–3 bit range, while a 2019 MacBook Pro comes with up to 32 gigabytes or 256,000,000,000 bits of memory—cloud-based systems have orders of magnitude more.
+
+			p This experiment takes advantage of computers’ superior working memory and processing speed. The visualization is the result of millions of calculations, and most are calculated right now, in your browser. Doing the calculations in real time enables us to expose the parameters of the underlying algorithms—so you can interact with and manipulate the space of logos.
+
+			p The visualization is the outcome of a series of data transformations:
+
+			ol.accordion
+				li 
+					.accordion-header Data wrangling
+						.icon
+					.accordion-content
+						p Creating a good dataset takes a lot of time and patience. <a href="https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html" target="_blank">The New York Times</a> estimated in 2014 that up to 80% of a data scientist’s time is spent collecting and preparing data.
+
+						p To get started we simply needed a list of the companies on the Fortune 500 list. Thankfully Fortune Magazine’s robots.txt permits crawling their website for this information, providing the full list and some metadata for each company.
+
+						p Collecting the logos took surprisingly long and required a lot of legwork. Striving for consistency, it seemed like a good idea to collect vector versions for all, even though it slowed down the process significantly. Coming from a wide variety of sources, and a wide variety of file formats, it quickly became clear that they needed to be processed, cleaned, and saved in a uniform manner (SVG).
+
+						figure
+							include ../../svg/scale-to-fit.svg
+							figcaption Fig. 1: Scale to fit
+
+						p Using a <a href="https://nodejs.org/en/" target="_blank">NodeJS</a>-powered headless browser (<a href="http://phantomjs.org/" target="_blank">PhantomJS</a>), the vector logos were rendered and exported as bitmap PNGs. Scaled to fit and centered in a 1024 pixel square with a transparent background.
+
+
+				li
+					.accordion-header Feature detection
+						.icon
+					.accordion-content
+						p After collecting the logos they needed to be quantified or measured. What do they look like? What colors are being used? If a designer was to do it by hand they might make note of a number of features such as typography, shape, composition, and color. It’s a time-consuming effort that relies on making subjective decisions that are prone to mistakes and difficult to codify and scale.
+
+						p In his 2008 book “<a href="http://danariely.com/books/predictably-irrational/" target="_blank">Predictably Irrational</a>”, <a href="https://twitter.com/danariely" target="_blank">Dan Ariely</a>, professor of Psychology and Behavioral Economics at Duke University asserts: “Humans rarely choose things in absolute terms. We don't have an internal value meter that tells us how much things are worth. Rather, we focus on the relative advantage of one thing over another, and estimate value accordingly.”
+
+						p It is more likely that our designer would describe a logo’s features by assigning labels than a numeric value. For example, Walmart has a <i>sans serif</i> typeface while Berkshire Hathaway has a <i>serif</i> typeface. Target’s logo is a <i>circle</i>, while Wells Fargo is a <i>square</i>. One’s familiarity with a domain is proportional with ones the ability to describe objects within it.
+
+						p Unlike humans, the computer is more than happy to assign a value. Using a neural network to describe the logos not only provides a list of features but also enumerates to what degree a feature is present or absent. Ensuring a consistent list of features for all logos lets us compare apples with apples. A pre-trained general-purpose image classification network, ResNet50, was used for this process. Developed by a team of <a href="https://arxiv.org/abs/1512.03385" target="_blank">Microsoft researchers</a>, this 50-layer Residual Network won the 2015 ImageNet image classification competition (<a href="http://image-net.org/challenges/LSVRC/2015/" target="_blank">ILSRVS 2015</a>).
+
+						p For each logo, the network provided 2048 values. Each representing the presence/absence of a particular feature. Granularly describing the logos across 2048 features/dimensions.
+
+						p This is how it described the shape of the Walmart logo:
+
+						code 0.01971 0.07665 0.10508 0.00000 0.00510 0.48769 0.00000 0.08663 0.09032 0.01971 0.07665 0.10508 0.00000 0.00510 0.48769 0.00000 0.08663 0.09032 0.01971 0.07665 0.10508 0.00000 0.00510 0.48769 0.00000 0.08663 0.09032 …
+
+						p When you see this output, it’s easy to understand why many believe the misconception that neural networks are black boxes, with little to no insight into what, how and why it does what it does. Of course, this is simply not true. Unfortunately, what the computer thinks a feature is might not be what our designer believes to be a feature. Naturally, the neural network doesn’t know our semantic structure and cannot recreate it out of the box. Instead, view these features as “feature fragments”, where multiple features are required to form simple shapes such as a circle or a line. 
+
+						p In addition to shape, it's interesting to look at the usage of color. For each logo, the two most prominent colors were identified and separated by color channel (RGB). This is what Walmart’s top two colors look like:
+
+						code -0.00000 124.86442 197.96974 255.00000 194.16913 31.88876
+
+						p All in all 2054 features were generated for each logo.
+
+				li
+					.accordion-header Feature selection
+						.icon
+					.accordion-content
+						p Not all features the image classifier was trained to spot are relevant for this dataset—many are simply noise. Through a statistical procedure called principal component analysis, the features representing shape was boiled down from 2048 to the 50 most relevant ones.
+
+						p A total of 50 shape features and 6 color features formed the basis for our visualization.
+
+				li
+					.accordion-header Distance matrix
+						.icon
+					.accordion-content
+						p A list of enumerated features for all logos enables us to calculate the pairwise distance between all pairs. Imagine plotting two logos in a multidimensional chart (one dimension per feature) and drawing a straight line between the two. This line represents the Euclidean distance between the two, a measurement of their similarity or dissimilarity.
+
+						figure
+							include ../../svg/distance.svg
+							figcaption Fig. 2: Pairwise distance
+
+						p By iterating over all logo pairs, we create a matrix of distances between any two logos.
+
+				li
+					.accordion-header Dimensionality reduction <span class="tag">LIVE</span>
+						.icon
+					.accordion-content
+						p Since its creation in 2008, Geoffrey Hinton and Laurens van der Maaten’s award-winning t-Distributed Stochastic Neighbor Embedding (t-SNE) algorithm has become incredibly popular. Ideal for creating compelling two-dimensional images of large datasets. The authors have applied it to datasets with up to 30 million nodes.
+
+						p It takes a multi-dimensional distance matrix as an input and attempts to plot the data onto a two-dimensional surface while trying to respect the distance between each pair. The solution is incremental and improves with every call of its step function. Adding steps increases the calculation time linearly. The number of steps required to reach a stable structure varies.
+
+						p From the t-SNE algorithm, we get a point cloud with x and y values for each logo—ready for plotting. Making it possible to identify patterns of logos sharing one or more features.
+
+						p The <a href="https://github.com/karpathy/tsnejs" target="_blank">JavaScript implementation</a> of the algorithm was developed by <a href="https://twitter.com/karpathy" target="_blank">Andrej Karpathy</a>.
+				li
+					.accordion-header Linear assignment <span class="tag">LIVE</span>
+						.icon
+					.accordion-content
+						p The point cloud output of the t-SNE algorithm does not take object size into account for plotting. Similar objects are likely to overlap as there is no collision detection.
+
+						p For this reason, the t-SNE algorithm is often paired with an algorithm that aligns the dataset to a grid. A linear assignment algorithm calculates the distance (cost) between each logo and every cell in the grid. Then it assigns one logo per cell, with the goal of achieving the lowest overall cost—minimum distortion of the original point cloud.
+
+						figure
+							include ../../svg/linear-assignment.svg
+							figcaption Fig. 3: Linear assignment process
+
+						p The <a href="https://github.com/Fil/lap-jv" target="_blank">JavaScript implementation</a> of <a href="https://link.springer.com/article/10.1007/BF02278710" target="_blank">R. Jonker and A. Volgenant’s Linear Assignment Problem algorithm</a> (LAP-JV) was developed by <a href="https://twitter.com/recifs" target="_blank">Philippe Rivière</a>.
+				li
+					.accordion-header Data visualization <span class="tag">LIVE</span>
+						.icon
+					.accordion-content
+						p The final transformation involves plotting the logos in an interactive visualization with <a href="https://d3js.org/" target="_blank">D3.js</a>. In addition to zoom and pan, the visualization dynamically updates as the viewer tunes the parameters of the underlying algorithms.
+
+						p By default, JavaScript applications are single thread applications. While running complex calculations, the view may freeze, or even crash—leading to a less than desirable user experience. To avoid this, two web workers were employed to move the bulk of the calculations to two separate CPU threads, enabling the main thread to run uninterrupted.
+
+
+			p Even though this subject matter is inherently visual, the approach can be applied to anything, as long as it can be measured and quantified.
+
+			p I hope you enjoy the experiment. Feel free to <a href="https://twitter.com/knutsynstad" target="_blank">reach out with comments, suggestions, and feedback</a>.
+
+			p.em-dash <a href="http://knutsynstad.com" target="_blank">Knut M. Synstad</a>
+
+		#entry
+			p.entry-action Calculating visualization
+			p.entry-state Gathering data
+			button#start Start exploring

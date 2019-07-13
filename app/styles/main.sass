@@ -1,0 +1,344 @@
+@import _includes/variables
+@import _includes/typography
+@import _includes/accordion
+@import _includes/configuration
+@import _includes/about-modal
+@import _includes/instructions
+@import _includes/progress-bar
+@import _includes/illustrations
+
+*
+	margin: 0
+	padding: 0
+	box-sizing: border-box
+	-webkit-tap-highlight-color: rgba(0,0,0,0)
+	-webkit-text-size-adjust: none
+	-webkit-font-smoothing: antialiased
+	-moz-osx-font-smoothing: grayscale
+
+body
+	position: relative
+	background: $dark
+	padding: 0
+	margin: 0
+	box-sizing: border-box
+	overflow: auto
+
+.icon
+	display: block
+	width: 24px
+	height: 24px
+
+.wrapper
+	z-index: 2
+	position: relative
+	background: $dark
+	padding: 0 100px 50vh 100px
+	transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)
+	height: 100vh
+	overflow-y: scroll
+	@media (max-width: $single-column)
+		padding:
+			left: 50px
+			right: 50px
+
+.title
+	height: 50vh
+	position: relative
+	@media (min-width: 1350px)
+		margin-bottom: 75px
+		font-size: 75px
+	@media (max-width: 1350px)
+		margin-bottom: 60px
+		font-size: 60px
+	@media (max-width: 1150px)
+		margin-bottom: 50px
+		font-size: 50px
+	@media (max-width: 1000px)
+		margin-bottom: 40px
+		font-size: 40px
+	@media (max-width: 850px)
+		margin-bottom: 35px
+		font-size: 35px
+	@media (max-width: $single-column)
+		margin-bottom: 60px
+		font-size: 60px
+	@media (max-width: 600px)
+		margin-bottom: 50px
+		font-size: 50px
+	@media (max-width: 500px)
+		margin-bottom: 40px
+		font-size: 40px
+	@media (max-width: 450px)
+		margin-bottom: 30px
+		font-size: 30px
+	h1
+		position: absolute
+		bottom: 0
+		margin: 0
+		line-height: 1
+		font:
+			weight: 400
+			size: inherit
+
+#introduction
+	max-width: 1200px
+	margin: 0 auto
+	article
+		width: 50%
+		left: 0
+		@media (max-width: 768px)
+			width: 60%
+		@media (max-width: $single-column)
+			width: 100%
+	::selection
+		background: rgba(255,255,255,0.99)
+		color: black
+
+[data-state*="loading"]
+	#entry button
+		background: #777777
+		cursor: wait
+
+[data-state*="closed"]
+	#entry p
+		opacity: 0
+		user-select: none
+
+[data-state*="open"]
+	overflow: hidden
+	.wrapper
+		transform: translateY(-101vh)
+
+#entry
+	position: fixed
+	bottom: 50px
+	right: 200px
+	text-align: right
+	p
+		transition: opacity 0.2s ease
+	.entry-action
+		margin: 0
+	.entry-state
+		margin: 0 0 $line-height 0
+		color: #777777
+	button
+		transform: $animation
+	@media (max-width: $single-column)
+		background: rgba(0,0,0,0.8)
+		width: 100%
+		text-align: center
+		left: 50%
+		bottom: 0
+		right: unset
+		padding:
+			top: 25px
+			left: 50px
+			right: 50px
+			bottom: 25px - 21px
+		transform: translateX(-50%)
+		display: flex
+		flex-direction: column-reverse
+		.entry-action
+			display: none
+		.entry-state
+			display: inline-block
+			margin: 0
+			font-size: 12px
+			color: #BBBBBB
+		button
+			display: block
+			margin: 0 auto
+			width: 100%
+
+#figure
+	pointer-events: auto
+	position: fixed
+	left: 0
+	top: 0
+	bottom: 0
+	right: 0
+	height: 100%
+	width: 100%
+	cursor: grab
+	background: $background
+	&:active
+		cursor: grabbing
+	rect
+		cursor: grab
+		pointer-events: all
+		&:active
+			cursor: grabbing
+
+nav
+	position: fixed
+	top: 0
+	left: 0
+	width: 100%
+	padding: 40px
+	color: $dark
+	transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)
+	pointer-events: none
+	h2
+		float: left
+		font:
+			size: 24px
+			weight: 400
+		line-height: 24px
+		padding: 10px
+		user-select: none
+		@media (max-width: 400px)
+			font-size: 16px
+
+.navigation
+	float: right
+	fill: $dark
+	transition: inherit
+	li
+		pointer-events: all
+		display: inline-block
+		padding: 10px
+		cursor: pointer
+		transition: opacity 0.2s ease
+		&:hover svg
+			opacity: 0.3
+	svg
+		transition: inherit
+
+@media (max-width: $single-column)
+	.navigation
+		float: unset
+		position: fixed
+		bottom: 15px
+		left: 50%
+		transform: translateX(-50%)
+
+@keyframes breathe
+	0%
+		opacity: 0.5
+	50%
+		opacity: 1
+	100%
+		opacity: 0.5
+
+#edit
+	animation: breathe 2s ease-in-out infinite
+	&:hover
+		animation: none
+
+#overlay 
+	position: fixed
+	top: 0
+	right: 0
+	bottom: 0
+	left: 0
+	background: rgba(0,0,0,0.75)
+	opacity: 0
+	pointer-events: none
+	transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)
+
+	&:before
+		content: ''
+		left: 50%
+		top: 50%
+		position: fixed
+		transform: translate(-50%, -50%)
+		font-size: $small-font-size
+
+.modal
+	position: fixed
+	top: 99px + 20px
+	opacity: 0
+	transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)
+	background: $background
+	padding: 30px - 7.5px
+	min-width: 200px
+	pointer-events: none
+	border-radius: $border-radius
+	li
+		display: block
+		cursor: pointer
+		padding: 7.5px
+		transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1)
+		&:hover
+			opacity: 0.5
+	a
+		border: none
+	li, a
+		font-size: $small-font-size
+		color: $dark
+		line-height: $small-line-height
+
+#more-modal
+	right: 50px
+#share-modal
+	right: 94px
+#more-modal,
+#share-modal
+	@media (max-width: $single-column)
+		left: 50%
+		transform: translateX(-50%)
+
+body:not([data-overlay='none'])
+	#overlay
+		opacity: 1
+		pointer-events: auto
+		cursor: pointer
+	nav
+		color: $background
+	.modal
+		top: 99px
+	.navigation
+		fill: $background
+		li:hover svg
+			opacity: 1
+		svg
+			opacity: 0.3
+		#edit
+			animation: none
+
+[data-overlay*="more"]
+	#more-modal
+		pointer-events: auto
+		opacity: 1
+	#more
+		opacity: 1
+		&:hover
+			opacity: 0.5
+	#overlay:before
+		content: 'Click to close'
+
+[data-overlay*="share"]
+	#share-modal
+		pointer-events: auto
+		opacity: 1
+	#share
+		opacity: 1
+		&:hover
+			opacity: 0.5
+
+	#overlay:before
+		content: 'Click to close'
+
+figure
+	padding: 10px
+	background: #1A1A1A
+	border-radius: 2px
+	margin:
+		left: -10px
+		bottom: $line-height
+	figcaption
+		margin-top: $line-height / 2
+		opacity: 0.5
+
+.tag
+	background: white
+	padding: 1px 4px
+	font:
+		size: 12px
+		weight: 500
+	color: black
+	letter-spacing: 0.5px
+	border-radius: 2px
+	margin-left: $line-height / 2
+	opacity: 0.2
