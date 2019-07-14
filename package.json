@@ -9,11 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://knutsynstad@bitbucket.org/knutsynstad/webpack-boilerplate.git"
+    "url": "https://github.com/knutsynstad/fortune500.git"
   },
   "author": "Knut M. Synstad",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/knutsynstad/webpack-boilerplate#readme",
+  "homepage": "https://github.com/knutsynstad/fortune500",
   "devDependencies": {
     "autoprefixer": "^8.2.0",
     "babel-core": "^6.26.0",
