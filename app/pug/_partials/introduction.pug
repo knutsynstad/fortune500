@@ -4,7 +4,7 @@
 			.title: H1 Visualizing the<br />Space of Logos of<br />the Fortune 500
 
 			h3 Abstract
-			p This interactive visualization uses a neural network to analyze a set of logos (in this case the Fortune 500), find similarities and differences, and display the results. Users can adjust the parameters of the display format. The related paper describes how the code works (the analysis and display process). Code is available, enabling others to replicate the process, apply it to their own data sets (other sets of symbols), or to extend it to other uses.
+			p This interactive visualization uses a neural network to analyze a set of logos (in this case the Fortune 500), find similarities and differences, and display the results. Users can adjust the parameters of the display format. The related paper describes how the code works (the analysis and display process). <a href="https://github.com/knutsynstad/fortune500" target="_blank">Code</a> is available, enabling others to replicate the process, apply it to their own data sets (other sets of symbols), or to extend it to other uses.
 
 			h3 Introduction
 			p Much of what designers are called upon to do involves looking at how artifacts or features "fit-in" and "stand-out". That is, designers are often concerned with similarity and difference—seeing them, understanding them, and manipulating them. For example, a new icon must fit into a system and also be distinct from it. 
@@ -22,9 +22,9 @@
 
 			p Massachusetts Institute of Technology (MIT) professor in A.I., <a href="http://people.csail.mit.edu/phw/" target="_blank">Patrick Henry Winston</a> calls computing power <a href="http://blogs.discovermagazine.com/crux/2017/10/11/neueral-networks-artificial-intelligence/#.WsAM15PwbOQ" target="_blank">“the most important enabler of <i>deep learning</i> [a type of layered neural network.]”</a> Historically, both cost and access to high-performance computing limited their usefulness. But with the marginal cost of computing dropping to near zero, nearly everyone can now access “affordable” on-demand computing.
 
-			p Access to high-performance computing accelerated advancements in A.I., but even the largest networks can’t match the size or complexity of the human brain, yet. That said, artificial neural networks are still able to outperform us on a number of tasks—demonstrating value. In order to understand where to effectively apply them, we must study our own cognitive limitations, so that we can develop solutions that persist where we fall short.
+			p Access to high-performance computing accelerated advancements in A.I., but even the largest networks can’t match the size or complexity of the human brain, yet. That said, artificial neural networks are still able to outperform us on many tasks. To understand where to effectively apply them, we must study our own cognitive limitations, so that we can develop solutions that persist where we fall short.
 
-			p In his 1956 paper, <a href="http://www.psych.utoronto.ca/users/peterson/psy430s2001/Miller%20GA%20Magical%20Seven%20Psych%20Review%201955.pdf" target="_blank">“The Magical Number Seven, Plus or Minus Two,”</a>, cognitive psychologist George A. Miller discusses our capacity and limitations for processing information. Miller asserted that an average person is able to hold 7 ± 2 pieces of information in their working memory (both immediate memory and absolute judgment) at any given time. His assertion affects our daily life in more than you might think. Ever wonder why U.S. phone numbers and license plates are limited to 7 characters in length?
+			p In his 1956 paper, <a href="http://www.psych.utoronto.ca/users/peterson/psy430s2001/Miller%20GA%20Magical%20Seven%20Psych%20Review%201955.pdf" target="_blank">“The Magical Number Seven, Plus or Minus Two,”</a>, cognitive psychologist George A. Miller discusses our capacity and limitations for processing information. Miller asserted that an average person can hold 7 ± 2 pieces of information in their working memory (both immediate memory and absolute judgment) at any given time. His assertion affects our daily life in more than you might think. Ever wonder why U.S. phone numbers and license plates are limited to 7 characters in length?
 
 			p Our cognitive limitations make it difficult for us to process large amounts of information. For comparison, our working memory is in the 2–3 bit range, while a 2019 MacBook Pro comes with up to 32 gigabytes or 256,000,000,000 bits of memory—cloud-based systems have orders of magnitude more.
 
@@ -54,7 +54,7 @@
 					.accordion-header Feature detection
 						.icon
 					.accordion-content
-						p After collecting the logos they needed to be quantified or measured. What do they look like? What colors are being used? If a designer was to do it by hand they might make note of a number of features such as typography, shape, composition, and color. It’s a time-consuming effort that relies on making subjective decisions that are prone to mistakes and difficult to codify and scale.
+						p After collecting the logos they needed to be quantified or measured. What do they look like? What colors are being used? If a designer was to do it by hand they might make note of several features such as typography, shape, composition, and color. It’s a time-consuming effort that relies on making subjective decisions that are prone to mistakes and difficult to codify and scale.
 
 						p In his 2008 book “<a href="http://danariely.com/books/predictably-irrational/" target="_blank">Predictably Irrational</a>”, <a href="https://twitter.com/danariely" target="_blank">Dan Ariely</a>, professor of Psychology and Behavioral Economics at Duke University asserts: “Humans rarely choose things in absolute terms. We don't have an internal value meter that tells us how much things are worth. Rather, we focus on the relative advantage of one thing over another, and estimate value accordingly.”
 
@@ -70,7 +70,7 @@
 
 						p When you see this output, it’s easy to understand why many believe the misconception that neural networks are black boxes, with little to no insight into what, how and why it does what it does. Of course, this is simply not true. Unfortunately, what the computer thinks a feature is might not be what our designer believes to be a feature. Naturally, the neural network doesn’t know our semantic structure and cannot recreate it out of the box. Instead, view these features as “feature fragments”, where multiple features are required to form simple shapes such as a circle or a line. 
 
-						p In addition to shape, it's interesting to look at the usage of color. For each logo, the two most prominent colors were identified and separated by color channel (RGB). This is what Walmart’s top two colors look like:
+						p In addition to shape, it's interesting to look at the usage of color. For each logo, the two most prominent colors were identified using K-means clustering and then separated by color channel (RGB). This is what Walmart’s top two colors look like:
 
 						code -0.00000 124.86442 197.96974 255.00000 194.16913 31.88876
 
@@ -113,7 +113,7 @@
 					.accordion-content
 						p The point cloud output of the t-SNE algorithm does not take object size into account for plotting. Similar objects are likely to overlap as there is no collision detection.
 
-						p For this reason, the t-SNE algorithm is often paired with an algorithm that aligns the dataset to a grid. A linear assignment algorithm calculates the distance (cost) between each logo and every cell in the grid. Then it assigns one logo per cell, with the goal of achieving the lowest overall cost—minimum distortion of the original point cloud.
+						p For this reason, the t-SNE algorithm is often paired with an algorithm that aligns the dataset to a grid. A linear assignment algorithm calculates the distance (cost) between each logo and every cell in the grid. Then it assigns one logo per cell, to achieve the lowest overall cost—minimum distortion of the original point cloud.
 
 						figure
 							include ../../svg/linear-assignment.svg
@@ -126,7 +126,7 @@
 					.accordion-content
 						p The final transformation involves plotting the logos in an interactive visualization with <a href="https://d3js.org/" target="_blank">D3.js</a>. In addition to zoom and pan, the visualization dynamically updates as the viewer tunes the parameters of the underlying algorithms.
 
-						p By default, JavaScript applications are single thread applications. While running complex calculations, the view may freeze, or even crash—leading to a less than desirable user experience. To avoid this, two web workers were employed to move the bulk of the calculations to two separate CPU threads, enabling the main thread to run uninterrupted.
+						p By default, JavaScript applications are single-thread applications. While running complex calculations, the view may freeze, or even crash—leading to a less than desirable user experience. To avoid this, two web workers were employed to move the bulk of the calculations to two separate CPU threads, enabling the main thread to run uninterrupted.
 
 
 			p Even though this subject matter is inherently visual, the approach can be applied to anything, as long as it can be measured and quantified.

@@ -1,25 +1,24 @@
-import linearAssignment from './linearAssignment.js'
+import linearAssignment from './modules/linearAssignment';
 
-let working = false
-const work = []
+let working = false;
+const work = [];
 
-onmessage = event => {
-  work.push(event.data.data)
-  maybeStartWork(event.data.options)
-}
-
-function startWork (options) {
-  working = true
-  
+const startWork = (options) => {
+  working = true;
   while (work.length > 0) {
-    const coords = work.shift()
-    postMessage(linearAssignment(coords, options))
+    const coords = work.shift();
+    postMessage(linearAssignment(coords, options));
   }
-  working = false
-}
+  working = false;
+};
 
-function maybeStartWork (options) {
+const maybeStartWork = (options) => {
   if (!working) {
-    startWork(options)
+    startWork(options);
   }
-}
+};
+
+onmessage = (event) => {
+  work.push(event.data.data);
+  maybeStartWork(event.data.options);
+};
